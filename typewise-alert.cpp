@@ -1,10 +1,13 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-                    //lower ,  upper
-int limits[3][2] = {{   0   ,  35   },  //PASSIVE_COOLING:
-                    {   0   ,  45   },  //HI_ACTIVE_COOLING
-                    {   0   ,  40   }}; //MED_ACTIVE_COOLING
+                          //lower ,  upper
+const int limits[3][2] = {{   0   ,  35   },  //PASSIVE_COOLING
+                          {   0   ,  45   },  //HI_ACTIVE_COOLING
+                          {   0   ,  40   }}; //MED_ACTIVE_COOLING
+const char *message[3] = {"Hi, the temperature is too low\n",  //TOO_LOW
+                          "Hi, the temperature is too high\n", //TOO_HIGH
+                          ""}                                  //NORMAL
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
@@ -49,16 +52,6 @@ void sendToController(BreachType breachType) {
 
 void sendToEmail(BreachType breachType) {
   const char* recepient = "a.b@c.com";
-  switch(breachType) {
-    case TOO_LOW:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too low\n");
-      break;
-    case TOO_HIGH:
-      printf("To: %s\n", recepient);
-      printf("Hi, the temperature is too high\n");
-      break;
-    case NORMAL:
-      break;
-  }
+  printf("To: %s\n", recepient);
+  printf("%s", message[breachType]);
 }
