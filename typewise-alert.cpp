@@ -7,7 +7,7 @@ const int limits[3][2] = {{   0   ,  35   },  //PASSIVE_COOLING
                           {   0   ,  40   }}; //MED_ACTIVE_COOLING
 const char *message[3] = {"Hi, the temperature is too low\n",  //TOO_LOW
                           "Hi, the temperature is too high\n", //TOO_HIGH
-                          ""}                                  //NORMAL
+                          ""};                                  //NORMAL
 
 BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
   if(value < lowerLimit) {
